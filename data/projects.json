@@ -1,0 +1,22 @@
+[
+  {
+    "id": "p10001",
+    "name": "activity-platform"
+  },
+  {
+    "id": "p10002",
+    "name": "member-info"
+  },
+  {
+    "id": "p10003",
+    "name": "interest"
+  },
+  {
+    "id": "p10004",
+    "name": "market-center"
+  },
+  {
+    "id": "p10005",
+    "name": "wechat-meal"
+  }
+]
