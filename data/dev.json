@@ -2,22 +2,13 @@
   "changeId": "c10001",
   "changeName": "聊天接入云服务",
   "owner": "张三",
-  "branchName": "test",
+  "branchName": "kvm",
   "endDate": "2019/11/11",
   "projects": [
     {
       "projectId": "p10001",
       "projectName": "activity-platform",
-      "projectStatus": 1,
-      "isMsterUpdate": true
-      "kvm": {
-        "ip": "10.0.0.110",
-        "hostname": "activity-platform_test"
-      }
-    },
-    {
-      "projectId": "p10002",
-      "projectName": "member",
+      "projectStatus": 0,
       "developers": [
         {
           "developerId": "d10001",
@@ -26,11 +17,102 @@
         {
           "developerId": "d10002",
           "developerName": "可乐"
+        },
+        {
+          "developerId": "d10003",
+          "developerName": "包子"
         }
       ],
       "kvm": {
+        "ip": "10.0.0.110",
+        "hostname": "activity-platform_kvm"
+      }
+    },
+    {
+      "projectId": "p10001",
+      "projectName": "activity-platform",
+      "projectStatus": 1,
+      "developers": [
+        {
+          "developerId": "d10001",
+          "developerName": "张三"
+        },
+        {
+          "developerId": "d10002",
+          "developerName": "可乐"
+        },
+        {
+          "developerId": "d10003",
+          "developerName": "包子"
+        }
+      ],
+      "kvm": {
+        "ip": "10.0.0.110",
+        "hostname": "activity-platform_kvm"
+      }
+    },
+    {
+      "projectId": "p10002",
+      "projectName": "member",
+      "projectStatus": 2,
+      "kvm": {
         "ip": "10.0.0.112",
-        "hostname": "member_test"
+        "hostname": "member_kvm"
+      }
+    },
+    {
+      "projectId": "p10003",
+      "projectName": "midware",
+      "projectStatus": 3,
+      "developers": [
+        {
+          "developerId": "d10001",
+          "developerName": "张三"
+        },
+        {
+          "developerId": "d10003",
+          "developerName": "包子"
+        }
+      ],
+      "kvm": {
+        "ip": "10.0.0.113",
+        "hostname": "midware_kvm"
+      }
+    },
+    {
+      "projectId": "p10004",
+      "projectName": "wechat",
+      "projectStatus": 4,
+      "kvm": {
+        "ip": "10.0.0.114",
+        "hostname": "wechat_kvm"
+      }
+    },
+    {
+      "projectId": "p10005",
+      "projectName": "mmt-soa",
+      "projectStatus": 5,
+      "kvm": {
+        "ip": "10.0.0.115",
+        "hostname": "mmt-soa_kvm"
+      }
+    },
+    {
+      "projectId": "p10006",
+      "projectName": "aaa",
+      "projectStatus": 6,
+      "kvm": {
+        "ip": "10.0.0.116",
+        "hostname": "aaa_kvm"
+      }
+    },
+    {
+      "projectId": "p10007",
+      "projectName": "ccc",
+      "projectStatus": 7,
+      "kvm": {
+        "ip": "10.0.0.117",
+        "hostname": "ccc_kvm"
       }
     }
   ]

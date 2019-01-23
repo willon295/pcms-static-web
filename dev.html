@@ -47,16 +47,157 @@
             </ul>
         </section>
     </aside>
-
     <div class="content-wrapper" id="opDev">
         <section class="content-header">
-            <h1>
+            <h1 class="text-center">
+                {{changeInfo.changeName}} <span class="description-text small">Dev</span>
             </h1>
         </section>
         <section class="content container-fluid">
-            <!--------------------------
-              | Your Page Content Here |
-              -------------------------->
+            <hr>
+            <!--1. 工程列表显示-->
+            <div class="col-md-6" v-for="p in changeInfo.projects ">
+                <!--代操作-->
+                <div v-if="p.projectStatus==0" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">部署</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--部署中-->
+                <div v-if="p.projectStatus==2 || p.projectStatus==1" class="info-box">
+
+                    <div class="col-sm-10 no-padding no-margin">
+                         <span class="info-box-icon bg-orange overlay">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--运行中-->
+                <div v-if="p.projectStatus==3 || p.projectStatus==6" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-green"><i class="fa fa-cloud"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">部署</a></li>
+                            <li><a href="#">回滚</a></li>
+                            <li><a href="#">查看日志</a></li>
+                            <li><a href="#">测试通过</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--打包、运行失败-->
+                <div v-if="p.projectStatus==4 || p.projectStatus==5" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">部署</a></li>
+                            <li><a href="#">回滚</a></li>
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--master更新-->
+                <div v-if="p.projectStatus==7" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-purple"><i class="fa fa-cloud"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">合并代码</a></li>
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </section>
+
+        <!--预发审核信息-->
+        <section class="content  container-fluid">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td colspan="4" class="text-center"> <h4>预发审核</h4></td>
+                </tr>
+                <tr>
+                    <th>申请人</th>
+                    <th>所属变更</th>
+                    <th>工程</th>
+                    <th>操作</th>
+                </tr>
+                
+                <tr>
+                    <td>包子</td>
+                    <td>新零售二期</td>
+                    <td>activity-platform</td>
+                    <td>
+                        <button type="button" class="btn btn-default">同意</button>
+                        <button type="button" class="btn btn-default">拒绝</button>
+                    </td>
+                    
+                </tr>
+
+                </tbody>
+            </table>
+
         </section>
     </div>
 
@@ -68,6 +209,30 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
+<script type="text/javascript">
 
+
+    $(function () {
+        /*加载页面锁需要的数据*/
+        var dev = new Vue({
+            el: "#opDev",
+            data: {
+                changeInfo: {},
+            },
+            created: function () {
+                $.ajax({
+                    url: "data/dev.json",
+                    async: true,
+                    success: function (res) {
+                        dev.changeInfo = res;
+                    }
+                })
+            }
+        });
+
+
+        /*设置 样式*/
+    })
+</script>
 </body>
 </html>

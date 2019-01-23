@@ -1,0 +1,12 @@
+[
+  {
+    "applyDeveloperId": "100001",
+    "applyDeveloperName": "包子",
+    "changeName": "新零售",
+    "changeId": "c10001",
+    "project": {
+      "projectId": "p10001",
+      "projectName": "activity-platform"
+    }
+  }
+]
