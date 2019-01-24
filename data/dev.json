@@ -47,7 +47,7 @@
         }
       ],
       "kvm": {
-        "ip": "10.0.0.110",
+        "ip": "no",
         "hostname": "activity-platform_kvm"
       }
     },

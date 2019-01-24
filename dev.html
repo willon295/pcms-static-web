@@ -63,7 +63,8 @@
                         <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-text" v-if="p.kvm.ip == 'no' ">环境创建中</span>
+                            <span class="info-box-text" v-else>{{p.kvm.ip}}</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -81,7 +82,7 @@
                 <div v-if="p.projectStatus==2 || p.projectStatus==1" class="info-box">
 
                     <div class="col-sm-10 no-padding no-margin">
-                         <span class="info-box-icon bg-orange overlay">
+                         <span class="info-box-icon bg-green overlay">
                             <i class="fa fa-refresh fa-spin"></i>
                         </span>
                         <div class="info-box-content">
