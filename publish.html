@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PCMS | Publish</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="plugins/vue/vue.min.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a href="starter.html" class="logo">
+            <span class="logo-mini"><b>PCMS</b></span>
+            <span class="logo-lg"><b>PCMS</b></span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">PCMS</li>
+                <li class="active"><a href="#"><i class="fa fa-bookmark-o"></i> <span>我的变更</span></a></li>
+                <li><a href="#"><i class="fa fa-server"></i> <span>服务器管理</span></a></li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper" id="opPublish">
+        <section class="content-header">
+
+            <a href="detail.html" class="link-black">
+                <h1 class="text-center">
+                    {{changeInfo.changeName}} <span class="description-text small">Dev</span>
+                </h1>
+            </a>
+        </section>
+        <section class="content container-fluid">
+            <hr>
+            <!--1. 工程列表显示-->
+            <div class="col-md-6" v-for="p in changeInfo.projects ">
+
+                <div v-if="p.publishStatus==-1" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-yellow overlay">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">环境创建中</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                            <li><a href="#">部署</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--代操作-->
+                <div v-if="p.publishStatus==0" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                            <li><a href="#">部署</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--部署中-->
+                <div v-if="p.publishStatus==2 || p.publishStatus==1" class="info-box">
+
+                    <div class="col-sm-10 no-padding no-margin">
+                         <span class="info-box-icon bg-green overlay">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--运行中-->
+                <div v-if="p.publishStatus==3" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-green"><i class="fa fa-cloud"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                            <li><a href="#">部署</a></li>
+                            <li><a href="#">回滚</a></li>
+                            <li><a href="#">查看日志</a></li>
+                            <li><a href="#">测试通过</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--打包、运行失败-->
+                <div v-if="p.publishStatus==4 || p.publishStatus==5" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                            <li><a href="#">部署</a></li>
+                            <li><a href="#">回滚</a></li>
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </section>
+
+    </div>
+
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2019 <a href="#">Willon</a>.</strong> All rights reserved.
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script type="text/javascript">
+
+
+    $(function () {
+        /*加载页面锁需要的数据*/
+        var publish = new Vue({
+            el: "#opPublish",
+            data: {
+                changeInfo: {},
+            },
+            created: function () {
+                $.ajax({
+                    url: "data/publish.json",
+                    async: true,
+                    success: function (res) {
+                        publish.changeInfo = res;
+                    }
+                })
+            }
+        });
+        /*设置 样式*/
+    })
+</script>
+</body>
+</html>

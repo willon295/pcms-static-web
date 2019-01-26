@@ -1,4 +1,91 @@
 {
+  "changeId": "c10001",
+  "changeName": "聊天接入云服务",
+  "owner": "张三",
+  "branchName": "kvm",
+  "endDate": "2019/11/11",
+  "projects": [
+    {
+      "projectId": "p10001",
+      "projectName": "activity-platform",
+      "publishStatus": 0,
+      "permission": "all",
+      "kvm": {
+        "ip": "10.0.0.110",
+        "hostname": "activity-platform_kvm"
+      }
+    },
+    {
+      "projectId": "p10001",
+      "projectName": "activity-platform",
+      "publishStatus": 1,
+      "permission": "none",
+      "kvm": {
+        "ip": "10.0.1.111",
+        "hostname": "activity-platform_kvm"
+      }
+    },
+    {
+      "projectId": "p10002",
+      "projectName": "member",
+      "publishStatus": 2,
+      "permission": "all",
+      "kvm": {
+        "ip": "10.0.0.112",
+        "hostname": "member_kvm"
+      }
+    },
+    {
+      "projectId": "p10003",
+      "projectName": "midware",
+      "publishStatus": 3,
+      "permission": "all",
+      "kvm": {
+        "ip": "10.0.0.113",
+        "hostname": "midware_kvm"
+      }
+    },
+    {
+      "projectId": "p10004",
+      "projectName": "wechat",
+      "publishStatus": 4,
+      "permission": "all",
 
+      "kvm": {
+        "ip": "10.0.0.114",
+        "hostname": "wechat_kvm"
+      }
+    },
+    {
+      "projectId": "p10005",
+      "projectName": "mmt-soa",
+      "publishStatus": 5,
+      "permission": "all",
+      "kvm": {
+        "ip": "10.0.0.115",
+        "hostname": "mmt-soa_kvm"
+      }
+    },
+    {
+      "projectId": "p10006",
+      "projectName": "aaa",
+      "publishStatus": 4,
+      "permission": "all",
+      "kvm": {
+        "ip": "10.0.0.116",
+        "hostname": "aaa_kvm"
+      }
+    },
+    {
+      "projectId": "p10007",
+      "projectName": "ccc",
+      "publishStatus": 5,
+      "permission": "all",
 
+      "kvm": {
+        "ip": "10.0.0.117",
+        "hostname": "ccc_kvm"
+      }
+    }
+  ]
 }

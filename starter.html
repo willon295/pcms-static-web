@@ -63,7 +63,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="myChanges">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -71,7 +71,7 @@
             </h1>
         </section>
         <!-- Main content -->
-        <section class="content container-fluid" id="myChanges">
+        <section class="content container-fluid" >
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
@@ -124,72 +124,73 @@
                 </div><!-- /.col -->
             </div>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header">
 
-                            <h3 class="box-title">变更列表</h3>
-                            <div class="box-tools">
-                                <div class="input-group input-group-sm" style="width: 240px;">
-                                    <div class="input-group-btn" style="padding-right: 10px">
-                                        <a href="add.html" class="btn btn-sm btn-default ">创建变更
-                                        </a>
-                                    </div>
-                                    <input type="text" name="table_search" class="form-control"
-                                           placeholder="搜索">
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
+
+            <div class="table">
+
+                <table class="table  table-hover">
+
+                    <thead>
+                    <tr>
+                        <th >变更列表</th>
+                        <th colspan="2"></th>
+                        <th  class="pull-right">
+                            <div class="input-group input-group-sm" style="width: 240px;">
+                                <div class="input-group-btn" style="padding-right: 10px">
+                                    <a href="add.html" class="btn btn-sm btn-default ">创建变更
+                                    </a>
+                                </div>
+                                <input type="text" name="table_search" class="form-control"
+                                       placeholder="搜索">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-responsive">
-                                <tbody>
-                                <tr>
-                                    <th>变更名</th>
-                                    <th>到期日期</th>
-                                    <th>变更状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                <tr v-for="c in pageData.changes">
-                                    <td>{{c.changeName}}</td>
-                                    <td>{{c.endDate}}</td>
-                                    <td>
-                                        <span class="label label-primary" v-if="c.changeStatus == 0">创建中</span>
-                                        <span class="label label-success"  v-else-if="c.changeStatus == 1">进行中</span>
-                                        <span class="label label-warning"  v-else-if="c.changeStatus == 2">将过期</span>
-                                        <span class="label label-danger"  v-else-if="c.changeStatus == 3">已过期</span>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="detail.html" class="btn btn-default">详情</a>
-                                            <button type="button" class="btn btn-default dropdown-toggle"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="dev.html?changeId=c.changeId">操作项目</a></li>
-                                                <li><a href="#">操作预发</a></li>
-                                                <li><a href="#">操作线上</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        </th>
+                    </tr>
+                    </thead>
 
-                    <!-- /.box -->
-                </div>
+
+                    <tbody>
+                    <tr>
+                        <th>变更名</th>
+                        <th>到期日期</th>
+                        <th>变更状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="c in pageData.changes">
+                        <td>{{c.changeName}}</td>
+                        <td>{{c.endDate}}</td>
+                        <td>
+                            <span class="label label-primary" v-if="c.changeStatus == 0">创建中</span>
+                            <span class="label label-success"  v-else-if="c.changeStatus == 1">进行中</span>
+                            <span class="label label-warning"  v-else-if="c.changeStatus == 2">将过期</span>
+                            <span class="label label-danger"  v-else-if="c.changeStatus == 3">已过期</span>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="detail.html" class="btn btn-default">详情</a>
+                                <button type="button" class="btn btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="dev.html">操作项目</a></li>
+                                    <li><a href="pre.html">操作预发</a></li>
+                                    <li><a href="publish.html">操作线上</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
             </div>
-
         </section>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
