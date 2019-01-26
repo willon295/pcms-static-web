@@ -5,11 +5,10 @@
   "branchName": "kvm",
   "endDate": "2019/11/11",
   "projects": [
-
     {
       "projectId": "p0001",
       "projectName": "mmt-act",
-      "devStatus": -1,
+      "preStatus": -3,
       "permission": "none",
       "kvm": {
         "ip": "10.0.0.109",
@@ -19,8 +18,8 @@
     {
       "projectId": "p10001",
       "projectName": "activity-platform",
-      "devStatus": 0,
-      "permission": "all",
+      "preStatus": -2,
+      "permission": "none",
       "kvm": {
         "ip": "10.0.0.110",
         "hostname": "activity-platform_kvm"
@@ -29,7 +28,7 @@
     {
       "projectId": "p10001",
       "projectName": "activity-platform",
-      "devStatus": 1,
+      "preStatus": -1,
       "permission": "none",
       "kvm": {
         "ip": "10.0.1.111",
@@ -39,7 +38,7 @@
     {
       "projectId": "p10002",
       "projectName": "member",
-      "devStatus": 2,
+      "preStatus": 0,
       "permission": "all",
       "kvm": {
         "ip": "10.0.0.112",
@@ -49,7 +48,7 @@
     {
       "projectId": "p10003",
       "projectName": "midware",
-      "devStatus": 3,
+      "preStatus": 1,
       "permission": "all",
       "kvm": {
         "ip": "10.0.0.113",
@@ -59,9 +58,7 @@
     {
       "projectId": "p10004",
       "projectName": "wechat",
-      "devStatus": 4,
-      "permission": "all",
-
+      "preStatus": 2,
       "kvm": {
         "ip": "10.0.0.114",
         "hostname": "wechat_kvm"
@@ -70,8 +67,7 @@
     {
       "projectId": "p10005",
       "projectName": "mmt-soa",
-      "devStatus": 5,
-      "permission": "all",
+      "preStatus": 3,
       "kvm": {
         "ip": "10.0.0.115",
         "hostname": "mmt-soa_kvm"
@@ -80,8 +76,8 @@
     {
       "projectId": "p10006",
       "projectName": "aaa",
-      "devStatus": 6,
-      "permission": "all",
+      "preStatus": 4,
+      "permission": "view",
       "kvm": {
         "ip": "10.0.0.116",
         "hostname": "aaa_kvm"
@@ -90,12 +86,21 @@
     {
       "projectId": "p10007",
       "projectName": "ccc",
-      "devStatus": 7,
+      "preStatus": 5,
       "permission": "all",
-
       "kvm": {
         "ip": "10.0.0.117",
         "hostname": "ccc_kvm"
+      }
+    },
+    {
+      "projectId": "p10006",
+      "projectName": "aaa",
+      "permission": "all",
+      "preStatus": 6,
+      "kvm": {
+        "ip": "10.0.0.116",
+        "hostname": "aaa_kvm"
       }
     }
   ]
