@@ -166,7 +166,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <select class="form-control select2" id="select-project-name">
-                                        <option v-for="option in options " :value="option.id">{{option.name}}
+                                        <option v-for="option in options " :value="option.projectId">
+                                            {{option.projectName}}
                                         </option>
                                     </select>
                                 </div>
@@ -176,7 +177,8 @@
                                     <select class="form-control select2" id="select-project-developer"
                                             multiple="multiple"
                                             data-placeholder="参与人员">
-                                        <option v-for="option in options" :value="option.id">#{{option.name}}</option>
+                                        <option v-for="option in options" :value="option.userId">#{{option.username}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -237,6 +239,7 @@
     $(function () {
 
 
+        var hostPrefix= "http://192.168.43.171:8080/";
         /*绑定项目下拉框数据*/
         var v1 = new Vue({
             el: '#select-project-name',
@@ -246,10 +249,10 @@
             },
             created: function () {
                 $.ajax({
-                    url: "data/projects.json",
+                    url: hostPrefix+"projects",
                     async: true,
                     success: function (res) {
-                        v1.options = res;
+                        v1.options = res.data;
                     }
 
                 })
@@ -266,10 +269,10 @@
 
             created: function () {
                 $.ajax({
-                    url: "data/developers.json",
+                    url: hostPrefix+"users",
                     async: true,
                     success: function (res) {
-                        v2.options = res;
+                        v2.options = res.data;
                     }
 
                 })
@@ -393,19 +396,25 @@
                     $(tds).each(function (i) {
                         var text = $(this).text();
                         if (i === 0) {
-                            addProjectId = text.toString();
+                            addProjectId = Number.parseInt(text.toString());
                         } else {
                             devIds = text.toString().split('#');
+                            devIds = devIds.map(r => {
+                                return +r
+                            })
                         }
                     });
+
                     var project = {
-                        id: addProjectId,
+                        projectId: addProjectId,
                         developers: devIds
                     };
-                    data.projects.push(project)
+
+                    data.projects.push(project);
+
                 }
             );
-            console.log(data)
+            console.log(JSON.stringify(data))
         })
 
     })

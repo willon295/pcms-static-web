@@ -1,22 +1,22 @@
 [
   {
-    "id": "p10001",
-    "name": "activity-platform"
+    "projectId": 10001,
+    "projectName": "activity-platform"
   },
   {
-    "id": "p10002",
-    "name": "member-info"
+    "projectId": 10002,
+    "projectName": "member-info"
   },
   {
-    "id": "p10003",
-    "name": "interest"
+    "projectId": 10003,
+    "projectName": "interest"
   },
   {
-    "id": "p10004",
-    "name": "market-center"
+    "projectId": 10004,
+    "projectName": "market-center"
   },
   {
-    "id": "p10005",
-    "name": "wechat-meal"
+    "projectId": 10005,
+    "projectName": "wechat-meal"
   }
 ]

@@ -1,22 +1,22 @@
 [
   {
-    "id": "10001",
-    "name": "张三"
+    "userId": 10001,
+    "username": "张三"
   },
   {
-    "id": "10002",
-    "name": "李四"
+    "userId": 10002,
+    "username": "李四"
   },
   {
-    "id": "10003",
-    "name": "韭菜"
+    "userId": 10003,
+    "username": "韭菜"
   },
   {
-    "id": "10004",
-    "name": "包子"
+    "userId": 10004,
+    "username": "包子"
   },
   {
-    "id": "10005",
-    "name": "可乐"
+    "userId": 10005,
+    "username": "可乐"
   }
 ]
