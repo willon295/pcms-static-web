@@ -239,7 +239,8 @@
     $(function () {
 
 
-        var hostPrefix= "http://192.168.43.171:8080/";
+        var projectMap = new Map();
+        var hostPrefix = "http://192.168.43.171:8080/";
         /*绑定项目下拉框数据*/
         var v1 = new Vue({
             el: '#select-project-name',
@@ -249,10 +250,14 @@
             },
             created: function () {
                 $.ajax({
-                    url: hostPrefix+"projects",
+                    url: hostPrefix + "projects",
                     async: true,
                     success: function (res) {
                         v1.options = res.data;
+                        var projects = res.data;
+                        projects.forEach(function (e, index) {
+                            projectMap.set(e.projectId, e.projectName)
+                        })
                     }
 
                 })
@@ -269,7 +274,7 @@
 
             created: function () {
                 $.ajax({
-                    url: hostPrefix+"users",
+                    url: hostPrefix + "users",
                     async: true,
                     success: function (res) {
                         v2.options = res.data;
@@ -407,6 +412,7 @@
 
                     var project = {
                         projectId: addProjectId,
+                        projectName: projectMap.get(addProjectId),
                         developers: devIds
                     };
 
@@ -414,7 +420,18 @@
 
                 }
             );
-            console.log(JSON.stringify(data))
+            var finalData = JSON.stringify(data);
+            console.log(finalData);
+            $.ajax({
+                url: hostPrefix + "change",
+                type: "POST",
+                data: finalData,
+                contentType: 'application/json',
+                async: true,
+                success: function (res) {
+                    console.log("success")
+                }
+            })
         })
 
     })
