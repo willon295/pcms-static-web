@@ -68,7 +68,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1 class="text-center">
-                {{baseInfo.changeName}}
+                {{pageData.change.changeName}}
             </h1>
         </section>
         <hr>
@@ -81,7 +81,7 @@
                         <a href="#">
                             <div class="info-box-content">
                                 <h4><span class="info-box-text">Owner</span></h4>
-                                <span class="info-box-number">{{baseInfo.owner}}</span>
+                                <span class="info-box-number">{{pageData.ownerName}}</span>
                             </div>
                         </a>
                     </div>
@@ -93,7 +93,7 @@
                         <a href="#">
                             <div class="info-box-content">
                                 <h4><span class="info-box-text">分支名称</span></h4>
-                                <span class="info-box-number">{{baseInfo.branchName}}</span>
+                                <span class="info-box-number">{{pageData.change.branchName}}</span>
                             </div>
                         </a>
                     </div>
@@ -104,7 +104,7 @@
                         <a href="#">
                             <div class="info-box-content">
                                 <h4><span class="info-box-text">到期时间</span></h4>
-                                <span class="info-box-number">{{baseInfo.endDate}}</span>
+                                <span class="info-box-number">{{pageData.change.expireDate}}</span>
                             </div>
                         </a>
                     </div>
@@ -122,15 +122,15 @@
                     <table class="table table-responsive">
                         <tr>
                             <td><span>工程名称</span></td>
-                            <td><span>开发、测试人员</span></td>
+                            <td><span>参与人员</span></td>
                             <td><span>服务器IP</span></td>
                         </tr>
-                        <tr v-for="p in projects">
-                            <td>{{p.projectName}}</td>
+                        <tr v-for="k in pageData.kvms">
+                            <td>{{k.projectName}}</td>
                             <td>
-                                <span  v-for="n in p.developers">{{n.developerName}}  . </span>
+                                <span v-for="u in k.users">{{u.realName}}  . </span>
                             </td>
-                            <td>{{p.kvm.ip}}</td>
+                            <td>{{k.ip}}</td>
                         </tr>
                     </table>
 
@@ -142,9 +142,8 @@
 
         <section class="container-fluid  pull-right">
             <div class="box-body">
-                <a class="btn btn-danger" href="modify.html" >编辑</a>
-                <a class="btn btn-primary" href="dev.html" >操作Dev环境</a>
-                <a class="btn btn-warning" href="pre.html   ">操作Pre环境</a>
+                <a class="btn btn-danger" href="modify.html">编辑</a>
+                <a class="btn btn-primary" href="dev.html">操作Dev环境</a>
                 <a class="btn btn-success" href="publish.html">操作Publish环境</a>
             </div>
         </section>
@@ -169,30 +168,17 @@
 <script type="text/javascript">
     $(function () {
 
-        var changeInfo = new Vue({
+        var changeDetail = new Vue({
             el: '#changeInfo',
             data: {
-                baseInfo: {
-                    changeId: '',
-                    changeName: '',
-                    owner: '',
-                    branchName: '',
-                    endDate: ''
-                },
-                projects: []
+                pageData: {}
             },
             created: function () {
                 $.ajax({
                     url: 'data/changeDetail.json',
                     async: true,
                     success: function (res) {
-                        changeInfo.baseInfo.changeId = res.changeId;
-                        changeInfo.baseInfo.changeName = res.changeName;
-                        changeInfo.baseInfo.owner = res.owner;
-                        changeInfo.baseInfo.branchName = res.branchName;
-                        changeInfo.baseInfo.endDate = res.endDate;
-                        changeInfo.projects = res.projects;
-
+                        changeDetail.pageData = res.data
                     }
                 })
             }

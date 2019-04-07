@@ -1,49 +1,68 @@
 {
-  "changeId": "c10001",
-  "changeName": "聊天接入云服务",
-  "owner": "张三",
-  "branchName": "test",
-  "endDate": "2019/11/11",
-  "projects": [
-    {
-      "projectId": "p10001",
-      "projectName": "activity-platform",
-      "developers": [
-        {
-          "developerId": "d10001",
-          "developerName": "张三"
-        },
-        {
-          "developerId": "d10002",
-          "developerName": "可乐"
-        },
-        {
-          "developerId": "d10003",
-          "developerName": "包子"
-        }
-      ],
-      "kvm": {
-        "ip": "10.0.0.110",
-        "hostname": "activity-platform_test"
-      }
+  "code": 200,
+  "message": "success",
+  "data": {
+    "change": {
+      "changeId": 28,
+      "changeName": "变更测试5",
+      "branchName": "br5",
+      "attribute": null,
+      "createDate": "2019-4-7",
+      "expireDate": "2019-4-24"
     },
-    {
-      "projectId": "p10002",
-      "projectName": "member",
-      "developers": [
-        {
-          "developerId": "d10001",
-          "developerName": "张三"
-        },
-        {
-          "developerId": "d10002",
-          "developerName": "可乐"
-        }
-      ],
-      "kvm": {
-        "ip": "10.0.0.112",
-        "hostname": "member_test"
+    "ownerId": 2,
+    "ownerName": "willon",
+    "kvms": [
+      {
+        "kvmId": 24,
+        "hostname": "member-info-br5",
+        "projectId": 3,
+        "projectName": "member-info",
+        "ip": "10.0.0.29",
+        "devStatus": 0,
+        "changeId": 28,
+        "attribute": "",
+        "isValid": 1,
+        "users": [
+          {
+            "userId": 7,
+            "username": "quemai",
+            "realName": "雀麦",
+            "permission": "select"
+          },
+          {
+            "userId": 3,
+            "username": "kele",
+            "realName": "可乐",
+            "permission": "select"
+          }
+        ]
+      },
+      {
+        "kvmId": 25,
+        "hostname": "interest-br5",
+        "projectId": 2,
+        "projectName": "interest",
+        "ip": "10.0.0.30",
+        "devStatus": 0,
+        "changeId": 28,
+        "attribute": "",
+        "isValid": 1,
+        "users": [
+          {
+            "userId": 3,
+            "username": "kele",
+            "realName": "可乐",
+            "permission": "select"
+          },
+          {
+            "userId": 2,
+            "username": "willon",
+            "realName": "willon",
+            "permission": "select"
+          }
+        ]
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,37 +1,21 @@
 {
-  "totalCount": 13,
-  "runningCount": 8,
-  "willExpiredCount": 3,
-  "expiredCount": 1,
-  "changes": [
-    {
-      "changeId": 10000,
-      "isOwner": 1,
-      "changeName": "微服务工具化",
-      "endDate": "2019/10/2",
-      "changeStatus": 0
-    },
-    {
-      "changeId": 10001,
-      "isOwner": 1,
-      "changeName": "新零售二期",
-      "endDate": "2019/11/11",
-      "changeStatus": 1
-    },
-    {
-      "changeId": 10002,
-      "isOwner": 0,
-      "changeName": "聊天接入工具",
-      "endDate": "2019/12/13",
-      "changeStatus": 2
-    },
-    {
-      "changeId": 10003,
-      "isOwner": 0,
-      "changeName": "顾客管理",
-      "endDate": "2019/5/11",
-      "changeStatus": 3
-    }
-  ]
-
+  "code": 200,
+  "data": {
+    "changes": [
+      {
+        "branchName": "br5",
+        "changeId": 28,
+        "changeName": "变更测试5",
+        "expireDate": "2019-04-24",
+        "isOwner": 1
+      }
+    ],
+    "password": "123",
+    "position": 1,
+    "realName": "willon",
+    "totalCount": 1,
+    "userId": 2,
+    "username": "willon"
+  },
+  "message": "success"
 }

@@ -76,51 +76,17 @@
               | Your Page Content Here |
               -------------------------->
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="fa fa-server"></i></span>
 
-
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">变更总数</span></h4>
-                                <span class="info-box-number">{{pageData.totalCount}}</span>
-                            </div>
-                        </a>
-                    </div><!-- /.info-box -->
-                </div><!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-12 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
                         <a href="#">
                             <div class="info-box-content">
-                                <h4><span class="info-box-text">进行中</span></h4>
-                                <span class="info-box-number">{{pageData.runningCount}}</span>
+                                <h4><span class="info-box-text">总变更</span></h4>
+                                <span class="info-box-number">{{pageData.totalCount}}</span>
                             </div>
                         </a>
                     </div>
-                </div><!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">即将到期</span></h4>
-                                <span class="info-box-number">{{pageData.willExpiredCount}}</span>
-                            </div>
-                        </a>
-                    </div><!-- /.info-box -->
-                </div><!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-trash-o"></i></span>
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">已过期</span></h4>
-                                <span class="info-box-number">{{pageData.expiredCount}}</span>
-                            </div>
-                        </a>
-                    </div><!-- /.info-box -->
                 </div><!-- /.col -->
             </div>
 
@@ -159,7 +125,7 @@
                     </tr>
                     <tr v-for="c in pageData.changes">
                         <td>{{c.changeName}}</td>
-                        <td>{{c.endDate}}</td>
+                        <td>{{c.expireDate}}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm">
                                 <a href="detail.html" class="btn btn-default">详情</a>
@@ -211,18 +177,19 @@
             $(window).attr("location", "login.html")
         }
 
+        var parse = JSON.parse(user);
+        var requestHost="http://localhost:8080";
         var myChanges = new Vue({
             el: "#myChanges",
             data: {
                 pageData: {}
             },
             created: function () {
-
                 $.ajax({
-                    url: 'data/myChange.json',
+                    url: requestHost+'/'+parse.userId+'/changes',
                     async: true,
                     success: function (res) {
-                        myChanges.pageData = res;
+                        myChanges.pageData = res.data;
                     }
                 })
             }
