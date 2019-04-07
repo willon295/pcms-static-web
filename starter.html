@@ -186,7 +186,7 @@
             },
             created: function () {
                 $.ajax({
-                    url: requestHost+'/'+parse.userId+'/changes',
+                    url: 'data/myChange.json',
                     async: true,
                     success: function (res) {
                         myChanges.pageData = res.data;
