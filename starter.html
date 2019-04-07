@@ -71,7 +71,7 @@
             </h1>
         </section>
         <!-- Main content -->
-        <section class="content container-fluid" >
+        <section class="content container-fluid">
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
@@ -125,16 +125,15 @@
             </div>
 
 
-
             <div class="table">
 
-                <table class="table  table-hover">
+                <table class="table table-hover">
 
                     <thead>
                     <tr>
-                        <th >变更列表</th>
-                        <th colspan="2"></th>
-                        <th  class="pull-right">
+                        <th>变更列表</th>
+                        <th colspan="1"></th>
+                        <th class="pull-right">
                             <div class="input-group input-group-sm" style="width: 240px;">
                                 <div class="input-group-btn" style="padding-right: 10px">
                                     <a href="add.html" class="btn btn-sm btn-default ">创建变更
@@ -156,19 +155,12 @@
                     <tr>
                         <th>变更名</th>
                         <th>到期日期</th>
-                        <th>变更状态</th>
-                        <th>操作</th>
+                        <th class="text-center">操作</th>
                     </tr>
                     <tr v-for="c in pageData.changes">
                         <td>{{c.changeName}}</td>
                         <td>{{c.endDate}}</td>
-                        <td>
-                            <span class="label label-primary" v-if="c.changeStatus == 0">创建中</span>
-                            <span class="label label-success"  v-else-if="c.changeStatus == 1">进行中</span>
-                            <span class="label label-warning"  v-else-if="c.changeStatus == 2">将过期</span>
-                            <span class="label label-danger"  v-else-if="c.changeStatus == 3">已过期</span>
-                        </td>
-                        <td>
+                        <td class="text-center">
                             <div class="btn-group btn-group-sm">
                                 <a href="detail.html" class="btn btn-default">详情</a>
                                 <button type="button" class="btn btn-default dropdown-toggle"
@@ -177,7 +169,7 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="modify.html">编辑</a></li>
+                                    <li v-if="c.isOwner == 1"><a href="modify.html">编辑</a></li>
                                     <li><a href="dev.html">操作项目</a></li>
                                     <li><a href="pre.html">操作预发</a></li>
                                     <li><a href="publish.html">操作线上</a></li>
@@ -209,25 +201,35 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="cookie.js"></script>
 <script type="text/javascript">
 
 
-    var myChanges = new Vue({
-        el: "#myChanges",
-        data: {
-            pageData: {}
-        },
-        created: function () {
-
-            $.ajax({
-                url: 'data/myChange.json',
-                async: true,
-                success: function (res) {
-                    myChanges.pageData = res;
-                }
-            })
+    $(function () {
+        var user = $.cookie('user');
+        if (user == null || user === "") {
+            $(window).attr("location", "login.html")
         }
-    })
+
+        var myChanges = new Vue({
+            el: "#myChanges",
+            data: {
+                pageData: {}
+            },
+            created: function () {
+
+                $.ajax({
+                    url: 'data/myChange.json',
+                    async: true,
+                    success: function (res) {
+                        myChanges.pageData = res;
+                    }
+                })
+            }
+        })
+    });
+
+
 
 </script>
 
