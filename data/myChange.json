@@ -3,17 +3,31 @@
   "data": {
     "changes": [
       {
+        "branchName": "br3",
+        "changeId": 28,
+        "changeName": "变更测试3",
+        "expireDate": "2019-04-23",
+        "isOwner": 1
+      },
+      {
+        "branchName": "br4",
+        "changeId": 28,
+        "changeName": "变更测试5",
+        "expireDate": "2019-03-24",
+        "isOwner": 1
+      },
+      {
         "branchName": "br5",
         "changeId": 28,
         "changeName": "变更测试5",
-        "expireDate": "2019-04-24",
+        "expireDate": "2019-04-25",
         "isOwner": 1
       }
     ],
     "password": "123",
     "position": 1,
     "realName": "willon",
-    "totalCount": 1,
+    "totalCount": 3,
     "userId": 2,
     "username": "willon"
   },
