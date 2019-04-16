@@ -17,6 +17,7 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
     <script src="dist/js/main.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -53,7 +54,7 @@
 
             <a href="detail.html" class="link-black">
                 <h1 class="text-center">
-                    {{pageData.change.changeName}} <span class="description-text small">Dev</span>
+                    {{pageData.changeName}} <span class="description-text small">Dev</span>
                 </h1>
             </a>
         </section>
@@ -103,7 +104,7 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
-                            <li><a href="#">部署</a></li>
+                            <li><a :href="">部署</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
@@ -258,12 +259,15 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
+<script src="cookie.js"></script>
 <script type="text/javascript">
 
 
     $(function () {
         /*加载页面锁需要的数据*/
 
+        var cookie = $.cookie('user');
+        var user = JSON.parse(cookie);
         var changeId = getUrlParam("changeId");
         var requestHost = "http://localhost:8080";
         var dev = new Vue({
@@ -273,7 +277,7 @@
             },
             created: function () {
                 $.ajax({
-                    url: requestHost + "/change/dev/" + changeId,
+                    url: requestHost + "/change/dev/" + changeId + "?userId=" + user.userId,
                     type: "GET",
                     async: true,
                     success: function (res) {

@@ -179,7 +179,6 @@
             created: function () {
                 $.ajax({
                     url: requestHost + '/change/' + changeId,
-                    async: true,
                     success: function (res) {
                         changeDetail.pageData = res.data
                     }

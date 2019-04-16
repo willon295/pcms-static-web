@@ -2,16 +2,7 @@
   "code": 200,
   "message": "ok",
   "data": {
-    "change": {
-      "changeId": 31,
-      "changeName": "变更测试7",
-      "branchName": "br7",
-      "attribute": null,
-      "createDate": "2019-4-16",
-      "expireDate": "2019-4-30"
-    },
-    "ownerId": 2,
-    "ownerName": "willon",
+    "changeName": "变更测试7",
     "kvms": [
       {
         "kvmId": 28,
@@ -20,25 +11,9 @@
         "projectName": "member-info",
         "ip": "10.0.0.31",
         "devStatus": 0,
-        "createDate": 1555392923879,
-        "expireDate": 1556582400000,
-        "changeId": 31,
-        "attribute": "",
-        "isValid": 1,
-        "users": [
-          {
-            "userId": 3,
-            "username": "kele",
-            "realName": "可乐",
-            "permission": "all"
-          },
-          {
-            "userId": 4,
-            "username": "hongniu",
-            "realName": "红牛",
-            "permission": "all"
-          }
-        ]
+        "createDate": "2019-4-16",
+        "expireDate": "2019-4-30",
+        "permission": null
       },
       {
         "kvmId": 29,
@@ -47,25 +22,9 @@
         "projectName": "interest",
         "ip": "10.0.0.32",
         "devStatus": 0,
-        "createDate": 1555392923879,
-        "expireDate": 1556582400000,
-        "changeId": 31,
-        "attribute": "",
-        "isValid": 1,
-        "users": [
-          {
-            "userId": 2,
-            "username": "willon",
-            "realName": "willon",
-            "permission": "all"
-          },
-          {
-            "userId": 6,
-            "username": "tiangua",
-            "realName": "甜瓜",
-            "permission": "all"
-          }
-        ]
+        "createDate": "2019-4-16",
+        "expireDate": "2019-4-30",
+        "permission": "all"
       }
     ]
   }
