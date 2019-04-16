@@ -16,6 +16,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
+    <script src="dist/js/main.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -40,7 +41,7 @@
                 <ul class="nav navbar-nav">
                     <!-- 锯齿无用 -->
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <a href="javascript:void(0)" onclick="signOut()"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -171,11 +172,9 @@
 
 
     $(function () {
-        var user = $.cookie('user');
-        if (user == null || user === "") {
-            $(window).attr("location", "login.html")
-        }
 
+        checkUser();
+        var user = $.cookie('user');
         var parse = JSON.parse(user);
         var requestHost = "http://localhost:8080";
         var myChanges = new Vue({
@@ -192,7 +191,8 @@
                     }
                 })
             }
-        })
+        });
+
     });
 
 

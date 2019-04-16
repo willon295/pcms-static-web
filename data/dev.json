@@ -2,7 +2,7 @@
   "code": 200,
   "message": "ok",
   "data": {
-    "changeName": "变更测试7",
+    "changeName": "测试7",
     "kvms": [
       {
         "kvmId": 28,

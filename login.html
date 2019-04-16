@@ -43,7 +43,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form>
+
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="Username" id="loginUsername">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -61,7 +61,7 @@
                 </div>
                 <!-- /.col -->
             </div>
-        </form>
+
 
     </div>
     <!-- /.login-box-body -->
@@ -72,7 +72,7 @@
 <script type="text/javascript">
 
     $(function () {
-        var requestHost = "http://192.168.43.171:8080";
+        var requestHost = "http://localhost:8080";
         $("#loginBtn").click(function () {
             var user = {
                 username: $("#loginUsername").val(),
@@ -90,10 +90,11 @@
                     if (data != null) {
                         var s = JSON.stringify(data);
                         $.cookie("user", s, {path: "/", expires: 1});
-                        $(window).attr("location", "starter.html")
                     } else {
                         alert("信息不正确")
                     }
+                    $(window).attr("location", "starter.html")
+
                 }
                 , error: function () {
                     alert("服务器失败")

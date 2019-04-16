@@ -43,6 +43,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
+    <script src="dist/js/main.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -67,7 +68,7 @@
                 <ul class="nav navbar-nav">
                     <!-- 锯齿无用 -->
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <a href="javascript:void(0)" onclick="signOut()"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -238,8 +239,9 @@
 <!-- Page script -->
 <script>
     $(function () {
-
-
+        if (!checkUser()) {
+            return;
+        }
         var projectMap = new Map();
         var hostPrefix = "http://192.168.43.171:8080/";
         /*绑定项目下拉框数据*/
@@ -383,7 +385,7 @@
         $('#addChangeBtn').click(function () {
 
             var data = {
-                ownerId:  JSON.parse($.cookie('user')).userId,
+                ownerId: JSON.parse($.cookie('user')).userId,
                 changeName: '',
                 branchName: '',
                 endDate: '',

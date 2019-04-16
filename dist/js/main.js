@@ -4,3 +4,16 @@ function getUrlParam(name) {
     if (r != null) return unescape(r[2]);
     return null; //返回参数值
 }
+
+function signOut() {
+    $.removeCookie('user', {path: "/"});
+    $(window).attr("location", "login.html")
+}
+
+function checkUser() {
+    var user = $.cookie('user');
+    if (user == null) {
+        $(window).attr("location", "login.html");
+    }
+
+}
