@@ -128,7 +128,7 @@
                         <td>{{c.expireDate}}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm">
-                                <a href="detail.html" class="btn btn-default">详情</a>
+                                <a :href="'detail.html?changeId='+c.changeId" class="btn btn-default">详情</a>
                                 <button type="button" class="btn btn-default dropdown-toggle"
                                         data-toggle="dropdown" aria-expanded="false">
                                     <span class="caret"></span>
@@ -136,9 +136,8 @@
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li v-if="c.isOwner == 1"><a href="modify.html">编辑</a></li>
-                                    <li><a href="dev.html">操作项目</a></li>
-                                    <li><a href="pre.html">操作预发</a></li>
-                                    <li><a href="publish.html">操作线上</a></li>
+                                    <li><a :href="'dev.html?changeId='+c.changeId">操作项目</a></li>
+                                    <li><a :href="'publish.html?changeId='+c.changeId">操作线上</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -178,7 +177,7 @@
         }
 
         var parse = JSON.parse(user);
-        var requestHost="http://localhost:8080";
+        var requestHost = "http://localhost:8080";
         var myChanges = new Vue({
             el: "#myChanges",
             data: {
@@ -186,7 +185,7 @@
             },
             created: function () {
                 $.ajax({
-                    url: 'data/myChange.json',
+                    url: requestHost + '/user/' + parse.userId + '/changes',
                     async: true,
                     success: function (res) {
                         myChanges.pageData = res.data;
@@ -195,7 +194,6 @@
             }
         })
     });
-
 
 
 </script>

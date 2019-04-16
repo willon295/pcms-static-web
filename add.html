@@ -430,8 +430,8 @@
                 data: finalData,
                 contentType: 'application/json',
                 async: true,
-                success: function (res) {
-                    console.log("success")
+                success: function () {
+                    $(window).attr("location", "starter.html")
                 }
             })
         })

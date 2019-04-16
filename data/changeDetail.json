@@ -1,64 +1,69 @@
 {
   "code": 200,
-  "message": "success",
+  "message": "ok",
   "data": {
     "change": {
-      "changeId": 28,
-      "changeName": "变更测试5",
-      "branchName": "br5",
-      "createDate": "2019-4-7",
-      "expireDate": "2019-4-24"
+      "changeId": 31,
+      "changeName": "变更测试7",
+      "branchName": "br7",
+      "attribute": null,
+      "createDate": "2019-4-16",
+      "expireDate": "2019-4-30"
     },
     "ownerId": 2,
     "ownerName": "willon",
     "kvms": [
       {
-        "kvmId": 24,
-        "hostname": "member-info-br5",
+        "kvmId": 28,
+        "hostname": "member-info-br7",
         "projectId": 3,
         "projectName": "member-info",
-        "ip": "10.0.0.29",
+        "ip": "10.0.0.31",
         "devStatus": 0,
-        "changeId": 28,
+        "createDate": 1555392923879,
+        "expireDate": 1556582400000,
+        "changeId": 31,
         "attribute": "",
         "isValid": 1,
         "users": [
           {
-            "userId": 7,
-            "username": "quemai",
-            "realName": "雀麦",
-            "permission": "select"
-          },
-          {
             "userId": 3,
             "username": "kele",
             "realName": "可乐",
-            "permission": "select"
+            "permission": "all"
+          },
+          {
+            "userId": 4,
+            "username": "hongniu",
+            "realName": "红牛",
+            "permission": "all"
           }
         ]
       },
       {
-        "kvmId": 25,
-        "hostname": "interest-br5",
+        "kvmId": 29,
+        "hostname": "interest-br7",
         "projectId": 2,
         "projectName": "interest",
-        "ip": "10.0.0.30",
+        "ip": "10.0.0.32",
         "devStatus": 0,
-        "changeId": 28,
+        "createDate": 1555392923879,
+        "expireDate": 1556582400000,
+        "changeId": 31,
         "attribute": "",
         "isValid": 1,
         "users": [
           {
-            "userId": 3,
-            "username": "kele",
-            "realName": "可乐",
-            "permission": "select"
-          },
-          {
             "userId": 2,
             "username": "willon",
             "realName": "willon",
-            "permission": "select"
+            "permission": "all"
+          },
+          {
+            "userId": 6,
+            "username": "tiangua",
+            "realName": "甜瓜",
+            "permission": "all"
           }
         ]
       }

@@ -16,6 +16,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
+    <script src="dist/js/main.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -52,22 +53,22 @@
 
             <a href="detail.html" class="link-black">
                 <h1 class="text-center">
-                    {{changeInfo.changeName}} <span class="description-text small">Dev</span>
+                    {{pageData.change.changeName}} <span class="description-text small">Dev</span>
                 </h1>
             </a>
         </section>
         <section class="content container-fluid">
             <hr>
             <!--1. 工程列表显示-->
-            <div class="col-md-6" v-for="p in changeInfo.projects ">
+            <div class="col-md-6" v-for="k in pageData.kvms ">
 
-                <div v-if="p.devStatus==-1" class="info-box">
+                <div v-if="k.devStatus==-1" class="info-box">
                     <div class="col-sm-10 no-padding no-margin">
                         <span class="info-box-icon bg-yellow overlay">
                             <i class="fa fa-refresh fa-spin"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
                             <span class="info-box-text">环境创建中</span>
                         </div>
                     </div>
@@ -77,7 +78,7 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">部署</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -86,12 +87,13 @@
                     </div>
                 </div>
                 <!--代操作-->
-                <div v-if="p.devStatus==0" class="info-box">
+                <div v-if="k.devStatus==0" class="info-box">
                     <div class="col-sm-10 no-padding no-margin">
                         <span class="info-box-icon bg-yellow"><i class="fa fa-warning"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text">待操作</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -100,7 +102,7 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">部署</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -108,16 +110,18 @@
                         </ul>
                     </div>
                 </div>
-                <!--部署中-->
-                <div v-if="p.devStatus==2 || p.devStatus==1" class="info-box">
+                <!--打包中、部署中-->
+                <div v-if="k.devStatus==1 || k.devStatus==3" class="info-box">
 
                     <div class="col-sm-10 no-padding no-margin">
                          <span class="info-box-icon bg-green overlay">
                             <i class="fa fa-refresh fa-spin"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text" v-if="k.devStatus==1">打包中</span>
+                            <span class="info-box-text" v-if="k.devStatus==3">部署中</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -126,7 +130,35 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
+                            <li><a href="#">查看日志</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" role="menu" v-else>
+                            <li><a href="#">无权限</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--打包、运行失败-->
+                <div v-if="k.devStatus==2 || k.devStatus==4" class="info-box">
+                    <div class="col-sm-10 no-padding no-margin">
+                        <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text" v-if="k.devStatus==2">打包失败</span>
+                            <span class="info-box-text" v-if="k.devStatus==4">部署失败</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 btn-group">
+                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="fa fa-sort-down"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
+                            <li><a href="#">部署</a></li>
+                            <li><a href="#">回滚</a></li>
                             <li><a href="#">查看日志</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -135,12 +167,13 @@
                     </div>
                 </div>
                 <!--运行中-->
-                <div v-if="p.devStatus==3" class="info-box">
+                <div v-if="k.devStatus==5" class="info-box">
                     <div class="col-sm-10 no-padding no-margin">
                         <span class="info-box-icon bg-green"><i class="fa fa-cloud"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text">运行中</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -149,7 +182,7 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">部署</a></li>
                             <li><a href="#">回滚</a></li>
                             <li><a href="#">查看日志</a></li>
@@ -160,38 +193,14 @@
                         </ul>
                     </div>
                 </div>
-                <!--打包、运行失败-->
-                <div v-if="p.devStatus==4 || p.devStatus==5" class="info-box">
-                    <div class="col-sm-10 no-padding no-margin">
-                        <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
-                        </div>
-                    </div>
-                    <div class="col-sm-2 btn-group">
-                        <button type="button" class="close dropdown-toggle " data-toggle="dropdown"
-                                aria-expanded="false">
-                            <span class="fa fa-sort-down"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
-                            <li><a href="#">部署</a></li>
-                            <li><a href="#">回滚</a></li>
-                            <li><a href="#">查看日志</a></li>
-                        </ul>
-                        <ul class="dropdown-menu" role="menu" v-else>
-                            <li><a href="#">无权限</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <!--测试通过-->
-                <div v-if="p.devStatus==6" class="info-box">
+                <div v-if="k.devStatus==6" class="info-box">
                     <div class="col-sm-10 no-padding no-margin">
                         <span class="info-box-icon bg-green"><i class="fa fa-check-circle-o"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text">测试通过</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -200,7 +209,7 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">部署</a></li>
                             <li><a href="#">回滚</a></li>
                             <li><a href="#">查看日志</a></li>
@@ -211,12 +220,13 @@
                     </div>
                 </div>
                 <!--master更新-->
-                <div v-if="p.devStatus==7" class="info-box">
+                <div v-if="k.devStatus==7" class="info-box">
                     <div class="col-sm-10 no-padding no-margin">
                         <span class="info-box-icon bg-purple"><i class="fa fa-cloud"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">{{p.kvm.ip}}</span>
+                            <span class="info-box-number">{{k.projectName}}</span>
+                            <span class="info-box-text">{{k.ip}}</span>
+                            <span class="info-box-text">master更新</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
@@ -225,7 +235,7 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu"  v-if="p.permission=='all'">
+                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">合并master代码</a></li>
                             <li><a href="#">查看日志</a></li>
                         </ul>
@@ -253,17 +263,21 @@
 
     $(function () {
         /*加载页面锁需要的数据*/
+
+        var changeId = getUrlParam("changeId");
+        var requestHost = "http://localhost:8080";
         var dev = new Vue({
             el: "#opDev",
             data: {
-                changeInfo: {},
+                pageData: {},
             },
             created: function () {
                 $.ajax({
-                    url: "data/dev.json",
+                    url: requestHost + "/change/dev/" + changeId,
+                    type: "GET",
                     async: true,
                     success: function (res) {
-                        dev.changeInfo = res;
+                        dev.pageData = res.data;
                     }
                 })
             }

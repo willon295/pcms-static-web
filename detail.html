@@ -16,6 +16,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
+    <script src="dist/js/main.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -142,9 +143,9 @@
 
         <section class="container-fluid  pull-right">
             <div class="box-body">
-                <a class="btn btn-danger" href="modify.html">编辑</a>
-                <a class="btn btn-primary" href="dev.html">操作Dev环境</a>
-                <a class="btn btn-success" href="publish.html">操作Publish环境</a>
+                <a class="btn btn-danger" :href="'modify.html?changeId='+pageData.change.changeId">编辑</a>
+                <a class="btn btn-primary" :href="'dev.html?changeId='+pageData.change.changeId">操作Dev环境</a>
+                <a class="btn btn-success" :href="'publish.html?changeId='+pageData.change.changeId">操作Publish环境</a>
             </div>
         </section>
 
@@ -168,6 +169,8 @@
 <script type="text/javascript">
     $(function () {
 
+        var requestHost = "http://localhost:8080";
+        var changeId = getUrlParam("changeId");
         var changeDetail = new Vue({
             el: '#changeInfo',
             data: {
@@ -175,7 +178,7 @@
             },
             created: function () {
                 $.ajax({
-                    url: 'data/changeDetail.json',
+                    url: requestHost + '/change/' + changeId,
                     async: true,
                     success: function (res) {
                         changeDetail.pageData = res.data
@@ -185,7 +188,9 @@
 
         });
 
-    })
+    });
+
+
 </script>
 
 
