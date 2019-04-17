@@ -52,7 +52,7 @@
     <div class="content-wrapper" id="opPublish">
         <section class="content-header">
 
-            <a href="detail.html" class="link-black">
+            <a :href="'detail.html?changeId='+changeId" class="link-black">
                 <h1 class="text-center">
                     {{changeName}} <span class="description-text small">Publish</span>
                 </h1>
@@ -71,7 +71,7 @@
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-number">{{p.projectName}}</span>
-                            <span class="info-box-text">无操作权限</span>
+                            <span class="info-box-text">待操作</span>
                         </div>
                     </div>
                     <div class="col-sm-2 btn-group">
