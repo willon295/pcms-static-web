@@ -43,6 +43,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="plugins/vue/vue.min.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -96,47 +97,47 @@
 
         <!-- Main content -->
         <section class="content container-fluid" id="modifyChange">
-            <h1 class="text-center">
-                {{pageData.changeInfo.changeName}}
+
+            <h1 class="text-center"> {{change.changeName}}
             </h1>
+
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon  bg-danger"><i class="fa fa-user"></i></span>
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">Owner</span></h4>
-                                <select class="form-control select2">
-                                    <option v-for="d in pageData.des " :value="d.id">{{d.name}}
-                                    </option>
-                                </select>
-                            </div>
-                        </a>
+
+                        <div class="info-box-content">
+                            <h4><span class="info-box-text">Owner</span></h4>
+                            <span class="info-box-number">{{ownerName}}</span>
+
+                        </div>
                     </div>
                 </div>
-
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-link"></i></span>
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">分支名称</span></h4>
-                                <span class="info-box-number">{{pageData.changeInfo.branchName}}</span>
-                            </div>
-                        </a>
+
+                        <div class="info-box-content">
+                            <h4><span class="info-box-text">分支名称</span></h4>
+                            <span>{{change.branchName}}</span>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
-                        <a href="#">
-                            <div class="info-box-content">
-                                <h4><span class="info-box-text">到期时间</span></h4>
-                                <input type="text" class="form-control" :value="pageData.changeInfo.endDate">
-                            </div>
-                        </a>
+
+                        <div class="info-box-content">
+                            <h4><span class="info-box-text">到期时间</span></h4>
+                            <span>{{change.expireDate}}</span>
+
+                        </div>
+
                     </div>
                 </div>
+
+
             </div>
 
             <!--工程列表-->
@@ -146,40 +147,50 @@
                     <h4 class="box-title">依赖工程</h4>
                 </div>
                 <div class="box-body">
-                    <!--已经添加的工程-->
-                    <div class="table">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>工程名称</th>
-                                <th>参与人员</th>
-                            </tr>
-                            </thead>
-                            <tbody id="dep-projects-table">
-                            <tr v-for="p in pageData.changeInfo.projects">
-                                <td>{{p.projectName}}</td>
-                                <td>
-                                    <div class="form-group">
-                                        <select class="form-control select2" id="modify-project-developer"
-                                                multiple="multiple"
-                                                data-placeholder="参与人员" >
-                                            <option v-for="d in pageData.des" :value="d.id">#{{d.name}}</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                    <!--工程列表-->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">关联工程</h3>
+                        </div>
+                        <div class="box-body  container-fluid">
+                            <!--已经添加的工程-->
+                            <table class="table table-responsive" id="originProjectTable">
+                                <tr>
+                                    <td><span>工程名称</span></td>
+                                    <td><span>参与人员</span></td>
+                                    <td><span>服务器IP</span></td>
+                                </tr>
+                                <tr v-for="k in kvms">
+                                    <td>{{k.projectName}}</td>
+                                    <td>
+                                        <span v-for="u in k.users">{{u.realName}} . </span>
+                                    </td>
+                                    <td>{{k.ip}}</td>
+                                </tr>
+                            </table>
+                            <!--新增的工程列表-->
+
+                        </div>
+
+                    </div>
+
+                    <div class="box">
+                        <div class="box-body  container-fluid">
+                            <!--新增的工程列表-->
+                            <table class="table table-striped" id="newAddProjectTable">
+                            </table>
+
+                        </div>
+
                     </div>
 
                     <!--添加输入框-->
-
-
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control select2" id="select-project-name">
-                                    <option v-for="p in pageData.pros " :value="p.id">{{p.name}}
+                                    <option v-for="p in projects " :value="p.projectId">{{p.projectName}}
                                     </option>
                                 </select>
                             </div>
@@ -188,14 +199,14 @@
                             <div class="form-group">
                                 <select class="form-control select2" id="select-project-developer"
                                         multiple="multiple"
-                                        data-placeholder="参与人员" >
-                                    <option v-for="d in pageData.des" :value="d.id">#{{d.name}}</option>
+                                        data-placeholder="参与人员">
+                                    <option v-for="d in users" :value="d.userId">#{{d.realName}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <a class="btn btn-sm btn-default" id="confirm-add-project">添加</a>
+                                <a class="btn btn-sm btn-default" id="continue-add-project">添加</a>
                             </div>
                         </div>
                     </div>
@@ -203,7 +214,7 @@
 
 
                 <div class="box-footer">
-                    <button class="btn btn-lg btn-info pull-right" id="addChangeBtn">添加变更</button>
+                    <button class="btn btn-lg btn-info pull-right" id="confirm-modify-change">确定修改</button>
                 </div>
             </div>
             <!--自定义内容-->
@@ -250,39 +261,58 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="cookie.js"></script>
+<script src="dist/js/main.js"></script>
 <script type="text/javascript">
     $(function () {
-
-        var changeInfo = new Vue({
+        var projectMap = new Map();
+        var requestHost = "http://localhost:8080";
+        var changeId = getUrlParam("changeId");
+        var modifyChange = new Vue({
             el: '#modifyChange',
             data: {
-                pageData: {
-                    changeInfo: {},
-                    des: [],
-                    pros: []
-                }
+                change: {},
+                ownerName: "",
+                ownerId: 0,
+                kvms: [],
+                projects: [],
+                users: [],
             },
             created: function () {
                 $.ajax({
-                    url: 'data/changeDetail.json',
+                    url: requestHost + '/change/' + changeId,
                     async: true,
-                    success: function (ci) {
-                        changeInfo.pageData.changeInfo = ci;
+                    success: function (changeDetail) {
+                        modifyChange.change = changeDetail.data.change;
+                        modifyChange.ownerName = changeDetail.data.ownerName;
+                        modifyChange.ownerId = changeDetail.data.ownerId;
+                        modifyChange.kvms = changeDetail.data.kvms;
                     }
                 });
 
+            },
+            mounted: function () {
+
+                /*获取用户信息*/
                 $.ajax({
-                    url: 'data/developers.json',
+                    url: requestHost + "/users",
                     async: true,
-                    success: function (des) {
-                        changeInfo.pageData.des = des;
+
+                    success: function (users) {
+                        modifyChange.users = users.data;
                     }
                 });
+
+                /*获取工程信息*/
                 $.ajax({
-                    url: 'data/projects.json',
+                    url: requestHost + "/projects",
                     async: true,
                     success: function (pros) {
-                        changeInfo.pageData.pros = pros;
+                        modifyChange.projects = pros.data;
+                        var ps = modifyChange.projects;
+                        ps.forEach(function (e, index) {
+                            projectMap.set(e.projectId, e.projectName)
+                        })
                     }
                 })
             }
@@ -290,6 +320,81 @@
         });
         /*初始化select2组件*/
         $('.select2').select2();
+
+        $('#continue-add-project').click(function () {
+            var projectId = $('#select-project-name').val();
+            var projectName = $('#select-project-name').find('option:selected').text();
+            var developersId = $('#select-project-developer').val();
+            var developersText = $('#select-project-developer').find('option:selected').text();
+
+            var idStr = '';
+            for (var i = 0; i < developersId.length; i++) {
+                idStr += developersId[i];
+                if (i < developersId.length - 1) {
+                    idStr += '#'
+                }
+            }
+            var tr = '                    <tr>\n' +
+                '                                <td hidden>' + projectId + '</td>\n' +
+                '                                <td >' + projectName + '</td>\n' +
+                '                                <td hidden>' + idStr + '</td>\n' +
+                '                                <td >' + developersText.toString() +
+                '</td>\n' +
+                '                            </tr>';
+
+            /*添加数据*/
+            $('#newAddProjectTable').append(tr);
+        });
+
+        /*拼装数据*/
+
+        /**
+         * 获取请求数据
+         */
+        $('#confirm-modify-change').click(function () {
+
+            var data = {
+                ownerId: JSON.parse($.cookie('user')).userId,
+                changeName: '',
+                changeId:0,
+                branchName: '',
+                endDate: '',
+                projects: []
+
+            };
+
+            data.changeName = modifyChange.change.changeName;
+            data.branchName = modifyChange.change.branchName;
+            data.changeId = modifyChange.change.changeId;
+            var addProjectId;
+            var devIds = [];
+            $('#newAddProjectTable tr').each(function () {
+                    var tds = $(this).children('td[hidden]');
+                    $(tds).each(function (i) {
+                        var text = $(this).text();
+                        if (i === 0) {
+                            addProjectId = Number.parseInt(text.toString());
+                        } else {
+                            devIds = text.toString().split('#');
+                            devIds = devIds.map(r => {
+                                return +r
+                            })
+                        }
+                    });
+
+                    var project = {
+                        projectId: addProjectId,
+                        projectName: projectMap.get(addProjectId),
+                        users: devIds
+                    };
+
+                    data.projects.push(project);
+
+                }
+            );
+            var finalData = JSON.stringify(data);
+            console.log(finalData);
+        })
 
 
     })
