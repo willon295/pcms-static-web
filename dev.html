@@ -127,9 +127,6 @@
                             <span class="fa fa-sort-down"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
-                            <li><a href="#">查看日志</a></li>
-                        </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
                         </ul>
@@ -156,7 +153,6 @@
                         <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">部署</a></li>
                             <li><a href="#">回滚</a></li>
-                            <li><a href="#">查看日志</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
@@ -184,7 +180,6 @@
                                    :value="'{\'hostname\': \''+k.hostname+'\', \'branchName\':\''+k.branchName+'\',\'env\':\'dev\'}'">部署</a>
                             </li>
                             <li><a href="javascript:void(0)">回滚</a></li>
-                            <li><a href="javascript:void(0)">查看日志</a></li>
                             <li><a href="javascript:void(0)"  onclick="devTestPass(this)" :value="k.hostname">测试通过</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -213,7 +208,6 @@
                                    :value="'{\'hostname\': \''+k.hostname+'\', \'branchName\':\''+k.branchName+'\',\'env\':\'dev\'}'">部署</a>
                             </li>
                             <li><a href="#">回滚</a></li>
-                            <li><a href="#">查看日志</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
@@ -238,7 +232,6 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="k.permission=='all'">
                             <li><a href="#">合并master代码</a></li>
-                            <li><a href="#">查看日志</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
