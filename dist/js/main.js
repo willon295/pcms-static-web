@@ -17,3 +17,62 @@ function checkUser() {
     }
 
 }
+
+
+function deployDev(v) {
+    console.log("begin deploy");
+    var v1 = $(v);
+    // 取得值
+    let attr = v1.attr("value");
+    var reg = new RegExp("'", "g");
+    var v2 = attr.replace(reg, "\"");
+    var deployCondition = JSON.parse(v2);
+    var requestHost = "http://localhost:8080";
+    // 异步发送处理
+
+    $.ajax({
+        url: requestHost + "/deploy",
+        type: "POST",
+        data: JSON.stringify(deployCondition),
+        dataType: "JSON",
+        contentType: "application/json",
+        success: function (res) {
+            if (res.code === 200) {
+                $.ajax({
+                    url: requestHost + "/change/dev/" + changeId + "?userId=" + user.userId,
+                    type: "GET",
+                    async: true,
+                    success: function (r) {
+                        dev.pageData = r.data;
+                    }
+                })
+            }
+        },
+        error: function (res) {
+            alert("部署失败原因：" + res)
+        }
+
+    })
+}
+
+/**
+ * 测试通过
+ * @param v 参数
+ */
+function devTestPass(v) {
+    var v1 = $(v);
+    var hostname = v1.attr("value");
+    var requestHost = "http://localhost:8080";
+    $.ajax({
+        url: requestHost + "/testPass/" + hostname,
+        type: "PUT",
+        success: function (res) {
+            console.log(res)
+        },
+        error: function (res) {
+            alert("部署失败原因：" + res)
+        }
+
+    })
+}
+
