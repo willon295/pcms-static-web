@@ -137,7 +137,7 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li v-if="c.isOwner == 1"><a href="modify.html">编辑</a></li>
+                                    <li v-if="c.isOwner == 1"><a :href="'modify.html?changeId='+c.changeId">编辑</a></li>
                                     <li><a :href="'dev.html?changeId='+c.changeId">操作项目</a></li>
                                     <li><a :href="'publish.html?changeId='+c.changeId">操作线上</a></li>
                                 </ul>

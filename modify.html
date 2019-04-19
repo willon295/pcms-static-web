@@ -129,9 +129,9 @@
                         <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
 
                         <div class="info-box-content">
-                            <h4><span class="info-box-text">到期时间</span></h4>
-                            <span>{{change.expireDate}}</span>
-
+                            <h4><span class="info-box-text">上线时间</span></h4>
+                            <span>原定时间：{{change.expireDate }}</span> <br>
+                            <span>项目延期： <input type="date" id="expireDate"/> </span>
                         </div>
 
                     </div>
@@ -356,9 +356,9 @@
             var data = {
                 ownerId: JSON.parse($.cookie('user')).userId,
                 changeName: '',
-                changeId:0,
+                changeId: 0,
                 branchName: '',
-                endDate: '',
+                expireDate: '',
                 projects: []
 
             };
@@ -366,6 +366,11 @@
             data.changeName = modifyChange.change.changeName;
             data.branchName = modifyChange.change.branchName;
             data.changeId = modifyChange.change.changeId;
+            data.expireDate = $("#expireDate").val();
+
+            // 更新kvm的信息
+            var updateKvmDtos = [];
+            var allUser = [];
             var addProjectId;
             var devIds = [];
             $('#newAddProjectTable tr').each(function () {
@@ -377,23 +382,73 @@
                         } else {
                             devIds = text.toString().split('#');
                             devIds = devIds.map(r => {
+                                allUser.push(+r);
                                 return +r
-                            })
+                            });
+
                         }
                     });
 
-                    var project = {
+                    var updateKvmDto = {
                         projectId: addProjectId,
                         projectName: projectMap.get(addProjectId),
+                        branchName: data.branchName,
+                        expireDate: data.expireDate,
+                        changeId: data.changeId,
                         users: devIds
                     };
-
-                    data.projects.push(project);
+                    updateKvmDtos.push(updateKvmDto)
 
                 }
             );
-            var finalData = JSON.stringify(data);
-            console.log(finalData);
+
+            // 更新change的信息
+            var updateChangeDto = {
+                ownerId:data.ownerId,
+                changeName: data.changeName,
+                changeId: data.changeId,
+                branchName: data.branchName,
+                expireDate: data.expireDate,
+                users: allUser
+            };
+
+
+            var upChangeJson = JSON.stringify(updateChangeDto);
+            console.log(upChangeJson);
+
+            var upKvmJson = JSON.stringify(updateKvmDtos);
+            console.log(upKvmJson);
+
+
+            // 发送更新变更请求
+            $.ajax({
+                url: requestHost + "/change",
+                type: "PUT",
+                data: upChangeJson,
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function () {
+                    console.log("update change ok")
+
+                }, error: function () {
+                    console.log(" update change fail")
+                }
+            });
+            // 发送更新变更请求
+            $.ajax({
+                url: requestHost + "/change/kvm",
+                type: "PUT",
+                data: upKvmJson,
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function () {
+                    console.log("update kvm ok")
+
+                }, error: function () {
+                    console.log("update kvm fail")
+                }
+            })
+
         })
 
 
