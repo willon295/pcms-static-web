@@ -1,0 +1,14 @@
+{
+  "code": 200,
+  "message": "ok",
+  "data": [
+    {
+      "hostname": "interest-br7",
+      "ip": "10.0.0.32"
+    },
+    {
+      "hostname": "member-info-br7",
+      "ip": "10.0.0.33"
+    }
+  ]
+}

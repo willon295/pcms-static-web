@@ -137,9 +137,12 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li v-if="c.isOwner == 1"><a :href="'modify.html?changeId='+c.changeId">编辑</a></li>
                                     <li><a :href="'dev.html?changeId='+c.changeId">操作项目</a></li>
                                     <li><a :href="'publish.html?changeId='+c.changeId">操作线上</a></li>
+                                    <li v-if="c.isOwner == 1"><a :href="'modify.html?changeId='+c.changeId">编辑变更</a>
+                                    </li>
+                                    <li v-if="c.isOwner == 1"><a href="javascript:void(0)"
+                                                                 v-on:click="deleteChange(c.changeId)">强行释放</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -191,6 +194,17 @@
                         myChanges.pageData = res.data;
                     }
                 })
+            },
+            methods: {
+                deleteChange: function (changeId) {
+
+
+                    if (confirm("强制删除变更是非常危险的操作， 删除后请通知项目组其他成员")) {
+                        alert("释放中。。。")
+
+                    }
+                }
+
             }
         });
 
