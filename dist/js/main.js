@@ -20,7 +20,6 @@ function checkUser() {
 
 
 function deployDev(v) {
-    console.log("begin deploy");
     var v1 = $(v);
     // 取得值
     let attr = v1.attr("value");
@@ -37,16 +36,7 @@ function deployDev(v) {
         dataType: "JSON",
         contentType: "application/json",
         success: function (res) {
-            if (res.code === 200) {
-                $.ajax({
-                    url: requestHost + "/change/dev/" + changeId + "?userId=" + user.userId,
-                    type: "GET",
-                    async: true,
-                    success: function (r) {
-                        dev.pageData = r.data;
-                    }
-                })
-            }
+            alert("成功")
         },
         error: function (res) {
             alert("部署失败原因：" + res)

@@ -4,11 +4,20 @@
   "data": [
     {
       "hostname": "interest-br7",
-      "ip": "10.0.0.32"
+      "ip": "10.0.0.32",
+      "status": 2
     },
     {
       "hostname": "member-info-br7",
-      "ip": "10.0.0.33"
+      "ip": "10.0.0.33",
+      "status": 0
+
+    },
+    {
+      "hostname": "member-info-br8",
+      "ip": "10.0.0.34",
+      "status": 1
+
     }
   ]
 }
