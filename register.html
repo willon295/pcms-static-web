@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PCMS Log in</title>
+    <title>PCMS Register</title>
     <!-- Tell the browser to be responsive to screen width -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -37,76 +37,87 @@
 <body class="hold-transition login-page bg bg-gray">
 <div class="login-box">
     <div class="login-logo">
-        <span>Login</span>
+        <span>Register</span>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Create an account </p>
 
 
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="Username" id="loginUsername">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Username" id="registerUsername">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="RealName" id="registerRealName">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" id="registerPassword">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <a href="login.html">Go to Sigin</a>
             </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" id="loginPassword">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
+            <!-- /.col -->
+            <div class="col-xs-4">
 
-            <div class="row">
-                <div class="col-xs-8">
-                    <a href="register.html">Don't have an account ?</a>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-
-                    <button class="btn btn-primary btn-block btn-flat" id="loginBtn">Sign In</button>
-                </div>
-                <!-- /.col -->
+                <button class="btn btn-primary btn-block btn-flat" id="regBtn">Register</button>
             </div>
+            <!-- /.col -->
+        </div>
 
 
     </div>
-    <!-- /.login-box-body -->
+
 </div>
-<!-- /.login-box -->
 
 
 <script type="text/javascript">
 
+
     $(function () {
-        var requestHost = "http://localhost:8080";
-        $("#loginBtn").click(function () {
+
+        $("#regBtn").click(function () {
+
+            var requestHost = "http://localhost:8080";
             var user = {
-                username: $("#loginUsername").val(),
-                password: $("#loginPassword").val()
+                username: $("#registerUsername").val(),
+                realName: $("#registerRealName").val(),
+                password: $("#registerPassword").val()
             };
 
             $.ajax({
-                url: requestHost + "/user/login",
-                data: JSON.stringify(user),
+                url: requestHost + "/user/register",
                 type: "POST",
+                data: JSON.stringify(user),
                 dataType: "JSON",
                 contentType: "application/json",
                 success: function (res) {
-                    var data = res.data;
-                    if (data != null) {
-                        var s = JSON.stringify(data);
-                        $.cookie("user", s, {path: "/", expires: 1});
-                    } else {
-                        alert("信息不正确")
+                    if (res.code === 200) {
+                        var data = res.data;
+                        if (data != null) {
+                            var s = JSON.stringify(data);
+                            $.cookie("user", s, {path: "/", expires: 1});
+                        } else {
+                            alert("信息不合法")
+                        }
+                        $(window).attr("location", "starter.html")
+                    } else if (res.code === 500) {
+                        alert(res.message)
                     }
-                    $(window).attr("location", "starter.html")
-
                 }
                 , error: function () {
                     alert("服务器失败")
                 }
+
             })
 
         })
-    });
 
+
+    });
 
 </script>
 </body>
