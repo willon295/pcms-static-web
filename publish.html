@@ -81,7 +81,9 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
-                            <li><a href="#">部署</a></li>
+                            <li><a href="javascript:void(0)" onclick="deployPublish(this)"
+                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                            </li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
@@ -104,7 +106,9 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
-                            <li><a href="#">部署</a></li>
+                            <li><a href="javascript:void(0)" onclick="deployPublish(this)"
+                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                            </li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
                             <li><a href="#">无权限</a></li>
@@ -155,7 +159,9 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
-                            <li><a href="#">部署</a></li>
+                            <li><a href="javascript:void(0)" onclick="deployPublish(this)"
+                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                            </li>
                             <li><a href="#">回滚</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -181,7 +187,9 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
-                            <li><a href="#">部署</a></li>
+                            <li><a href="javascript:void(0)" onclick="deployPublish(this)"
+                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                            </li>
                             <li><a href="#">回滚</a></li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -222,7 +230,7 @@
 
         <!--我发出的审核-->
 
-        <section class="content  container-fluid" v-if="sendChecks!=undefined && sendChecks.length>0 ">
+        <section class="content  container-fluid" v-if="sends!=undefined && sends.length>0 ">
             <table class="table table-striped">
                 <tbody>
                 <tr>
@@ -234,7 +242,7 @@
                     <th>审核状态</th>
                 </tr>
 
-                <tr v-for=" s in sendChecks">
+                <tr v-for=" s in sends">
                     <td>{{s.checkChangeName}}</td>
                     <td>{{s.checkProjectName}}</td>
                     <td>
@@ -271,8 +279,9 @@
             data: {
                 changeId: changeId,
                 changeName: "",
+                userId: user.userId,
                 servers: [],
-                sendChecks: [],
+                sends: [],
                 receiveChecks: []
             },
             created: function () {
@@ -281,8 +290,8 @@
                     success: function (res) {
                         publish.changeName = res.data.changeName;
                         publish.servers = res.data.servers;
-                        publish.sendChecks = res.data.sendChecks;
-                        publish.receiveChecks = res.data.receiveChecks;
+                        publish.sends = res.data.sends;
+                        publish.receiveChecks = res.data.receives;
                     }
                 })
             }

@@ -69,7 +69,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1 class="text-center">
-                {{pageData.change.changeName}}
+                {{change.changeName}}
             </h1>
         </section>
         <hr>
@@ -94,7 +94,7 @@
                         <a href="#">
                             <div class="info-box-content">
                                 <h4><span class="info-box-text">分支名称</span></h4>
-                                <span class="info-box-number">{{pageData.change.branchName}}</span>
+                                <span class="info-box-number">{{change.branchName}}</span>
                             </div>
                         </a>
                     </div>
@@ -105,7 +105,7 @@
                         <a href="#">
                             <div class="info-box-content">
                                 <h4><span class="info-box-text">到期时间</span></h4>
-                                <span class="info-box-number">{{pageData.change.expireDate}}</span>
+                                <span class="info-box-number">{{change.expireDate}}</span>
                             </div>
                         </a>
                     </div>
@@ -143,9 +143,9 @@
 
         <section class="container-fluid  pull-right">
             <div class="box-body">
-                <a class="btn btn-danger" :href="'modify.html?changeId='+pageData.change.changeId">编辑</a>
-                <a class="btn btn-primary" :href="'dev.html?changeId='+pageData.change.changeId">操作Dev环境</a>
-                <a class="btn btn-success" :href="'publish.html?changeId='+pageData.change.changeId">操作Publish环境</a>
+                <a class="btn btn-danger" :href="'modify.html?changeId='+change.changeId" v-if="userId==pageData.ownerId">编辑</a>
+                <a class="btn btn-primary" :href="'dev.html?changeId='+change.changeId">操作Dev环境</a>
+                <a class="btn btn-success" :href="'publish.html?changeId='+change.changeId">操作Publish环境</a>
             </div>
         </section>
 
@@ -172,19 +172,24 @@
 
 
     $(function () {
-
+        var cookie = $.cookie('user');
+        var user = JSON.parse(cookie);
         var requestHost = "http://localhost:8080";
         var changeId = getUrlParam("changeId");
         var changeDetail = new Vue({
             el: '#changeInfo',
             data: {
-                pageData: {}
+                pageData: {},
+                change:{},
+                changeId: changeId,
+                userId:user.userId,
             },
             created: function () {
                 $.ajax({
                     url: requestHost + '/change/' + changeId,
                     success: function (res) {
-                        changeDetail.pageData = res.data
+                        changeDetail.pageData = res.data;
+                        changeDetail.change=res.data.change;
                     }
                 })
             }
