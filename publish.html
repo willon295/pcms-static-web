@@ -215,12 +215,18 @@
                 </tr>
 
                 <tr v-for=" r in receiveChecks">
-                    <td>{{r.checkApplyUserId}}</td>
+                    <td>{{r.checkApplyUsername}}</td>
                     <td>{{r.checkChangeName}}</td>
                     <td>{{r.checkProjectName}}</td>
-                    <td>
-                        <button type="button" class="btn btn-default">同意</button>
-                        <button type="button" class="btn btn-default">拒绝</button>
+
+                    <td v-if="r.checkStatus < 0">
+                        <button type="button" class="btn btn-default"
+                                v-on:click="accessCheck(r.checkId,r.checkChangeId,r.checkProjectName)">同意
+                        </button>
+                        <button type="button" class="btn btn-default" v-on:click="denyCheck(r.checkId)">拒绝</button>
+                    </td>
+                    <td v-if="r.checkStatus==0">
+                        已拒绝
                     </td>
                 </tr>
 
@@ -239,12 +245,14 @@
                 <tr>
                     <th>所属变更</th>
                     <th>工程</th>
+                    <th>审核人</th>
                     <th>审核状态</th>
                 </tr>
 
                 <tr v-for=" s in sends">
                     <td>{{s.checkChangeName}}</td>
                     <td>{{s.checkProjectName}}</td>
+                    <td>{{s.checkReceiveUsername}}</td>
                     <td>
                         <span v-if="s.checkStatus==-1">待审核</span>
                         <span v-if="s.checkStatus==0">审核被拒</span>
@@ -294,9 +302,59 @@
                         publish.receiveChecks = res.data.receives;
                     }
                 })
+            }, methods: {
+                accessCheck: function (checkId, checkChangeId, checkProjectName) {
+
+                    var data = {
+                        checkId: checkId,
+                        changeId: checkChangeId,
+                        projectName: checkProjectName
+                    };
+                    var s = JSON.stringify(data);
+                    console.log("access: " + s);
+
+                    if (confirm("确定同意审核，并放弃当前占用线上环境")) {
+                        $.ajax({
+                            url: requestHost + "/check",
+                            type: "PUT",
+                            data: s,
+                            dataType: "JSON",
+                            contentType: "application/json",
+                            success: function () {
+                                alert("已同意")
+                            }
+                        })
+                    }
+
+                },
+                denyCheck: function (checkId) {
+                    $.ajax({
+                        url: requestHost + "/check/" + checkId,
+                        type: "PUT"
+                    })
+                }
+
+
             }
         });
         /*设置 样式*/
+
+        setInterval(function () {
+            getPublishData();
+        }, 5000);
+
+
+        function getPublishData() {
+            $.ajax({
+                url: requestHost + "/change/publish/" + changeId + "?userId=" + user.userId,
+                success: function (res) {
+                    publish.changeName = res.data.changeName;
+                    publish.servers = res.data.servers;
+                    publish.sends = res.data.sends;
+                    publish.receiveChecks = res.data.receives;
+                }
+            })
+        }
     })
 </script>
 </body>
