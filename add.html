@@ -239,7 +239,8 @@
 <!-- Page script -->
 <script>
     $(function () {
-
+        var coo = $.cookie('user');
+        var user = JSON.parse(coo);
         var projectMap = new Map();
         var hostPrefix = "http://localhost:8080/";
         /*绑定项目下拉框数据*/
@@ -408,7 +409,8 @@
                             devIds = text.toString().split('#');
                             devIds = devIds.map(r => {
                                 return +r
-                            })
+                            });
+                            devIds.push(user.userId)
                         }
                     });
 

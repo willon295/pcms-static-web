@@ -198,10 +198,14 @@
             methods: {
                 deleteChange: function (changeId) {
 
-
                     if (confirm("强制删除变更是非常危险的操作， 删除后请通知项目组其他成员")) {
-                        alert("释放中。。。"+changeId)
-
+                        $.ajax({
+                            url: requestHost + '/change/' + changeId,
+                            type: "DELETE",
+                            success: function () {
+                                $(window).attr('location','starter.html');
+                            }
+                        })
                     }
                 }
 

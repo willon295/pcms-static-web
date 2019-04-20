@@ -35,9 +35,6 @@ function deployDev(v) {
         data: JSON.stringify(deployCondition),
         dataType: "JSON",
         contentType: "application/json",
-        success: function (res) {
-            alert("成功")
-        },
         error: function (res) {
             alert("部署失败原因：" + res)
         }
