@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>PCMS | KVM</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
@@ -93,8 +94,10 @@
                     </td>
 
                     <td class="pull-right">
-                        <button class="btn btn-sm btn-warning" v-on:click="rebootKvm(k.ip)">强制重启</button>
-                        <button class="btn btn-sm btn-danger" v-on:click="deleteKvm(k.hostname)">释放服务器</button>
+                        <button class="btn btn-sm btn-primary" v-if="k.status==0" v-on:click="bootKvm(k.hostname)">启动
+                        </button>
+                        <button class="btn btn-sm  btn-warning" v-if="k.status>0" v-on:click="rebootKvm(k.hostname)">重启
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -117,9 +120,13 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script src="cookie.js"></script>
 
 <script type="text/javascript">
 
+    var requestHost = "http://localhost:8080";
+    var cookie = $.cookie('user');
+    var user = JSON.parse(cookie);
     var myKvm = new Vue({
         el: "#myKvmTable",
         data: {
@@ -127,7 +134,7 @@
         }, created: function () {
 
             $.ajax({
-                url: 'data/myKvms.json',
+                url: requestHost + "/user/" + user.userId + "/kvm",
                 success: function (res) {
                     myKvm.kvms = res.data
                 }
@@ -135,22 +142,35 @@
         }
         , methods: {
 
-            rebootKvm: function (e) {
+            bootKvm: function (hostname) {
 
-                if (confirm("确定强制重启？" + e)) {
+                $.ajax({
+                    url: requestHost + "/start/" + hostname,
+                    type: "GET",
+                    success: function () {
+                        alert("启动" + hostname + "成功");
+                    }, error: function () {
+                        alert("启动" + hostname + "失败");
+                    }
+                });
+            },
 
-                    alert("重启" + e + "成功")
+            rebootKvm: function (hostname) {
+
+                if (confirm("确定强制重启？" + hostname)) {
+
+                    $.ajax({
+                        url: requestHost + "/restart/" + hostname,
+                        type: "GET",
+                        success: function () {
+                            alert("重启" + hostname + "成功");
+                        },
+                        error: function () {
+                            alert("重启" + hostname + "失败");
+                        }
+                    });
                 }
             },
-            deleteKvm: function (hostname) {
-
-
-                if (confirm("确定销毁该服务器？" + hostname)) {
-
-                    alert("销毁" + hostname + "成功")
-                }
-
-            }
 
         }
     });
