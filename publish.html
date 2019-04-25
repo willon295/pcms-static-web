@@ -33,7 +33,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="javascript:void(0)" onclick="signOut()"><i class="fa fa-sign-out"></i></a>
+                        <a href="javascript:void(0)" onclick="signOut()"><span class="text-center " id="showName"></span>&nbsp;<i class="fa fa-sign-out"></i></a>
 
                     </li>
                 </ul>
@@ -279,6 +279,7 @@
     $(function () {
         var cookie = $.cookie('user');
         var user = JSON.parse(cookie);
+        $("#showName").text(user.realName);
         var requestHost = "http://localhost:8080";
         var changeId = getUrlParam("changeId");
         /*加载页面锁需要的数据*/

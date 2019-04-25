@@ -68,7 +68,7 @@
                 <ul class="nav navbar-nav">
                     <!-- 锯齿无用 -->
                     <li>
-                        <a href="javascript:void(0)" onclick="signOut()"><i class="fa fa-sign-out"></i></a>
+                        <a href="javascript:void(0)" onclick="signOut()"><span class="text-center " id="showName"></span>&nbsp;<i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -243,6 +243,7 @@
         var user = JSON.parse(coo);
         var projectMap = new Map();
         var hostPrefix = "http://localhost:8080/";
+        $("#showName").text(user.realName);
         /*绑定项目下拉框数据*/
         var v1 = new Vue({
             el: '#select-project-name',
