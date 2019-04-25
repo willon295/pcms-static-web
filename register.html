@@ -100,10 +100,10 @@
                         if (data != null) {
                             var s = JSON.stringify(data);
                             $.cookie("user", s, {path: "/", expires: 1});
+                            $(window).attr("location", "starter.html")
                         } else {
                             alert("信息不合法")
                         }
-                        $(window).attr("location", "starter.html")
                     } else if (res.code === 500) {
                         alert(res.message)
                     }

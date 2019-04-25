@@ -68,7 +68,9 @@
                 <ul class="nav navbar-nav">
                     <!-- 锯齿无用 -->
                     <li>
-                        <a href="javascript:void(0)" onclick="signOut()"><span class="text-center " id="showName"></span>&nbsp;<i class="fa fa-sign-out"></i></a>
+                        <a href="javascript:void(0)" onclick="signOut()"><span class="text-center "
+                                                                               id="showName"></span>&nbsp;<i
+                                class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -272,6 +274,7 @@
         var projectMap = new Map();
         var requestHost = "http://localhost:8080";
         var changeId = getUrlParam("changeId");
+        var expireDate = "";
         var modifyChange = new Vue({
             el: '#modifyChange',
             data: {
@@ -291,6 +294,7 @@
                         modifyChange.ownerName = changeDetail.data.ownerName;
                         modifyChange.ownerId = changeDetail.data.ownerId;
                         modifyChange.kvms = changeDetail.data.kvms;
+                        expireDate = changeDetail.data.change.expireDate;
                     }
                 });
 
@@ -370,7 +374,12 @@
             data.changeName = modifyChange.change.changeName;
             data.branchName = modifyChange.change.branchName;
             data.changeId = modifyChange.change.changeId;
-            data.expireDate = $("#expireDate").val();
+            var ed = $("#expireDate").val();
+            if (ed != null && ed !== "") {
+                data.expireDate = ed;
+            } else {
+                data.expireDate = expireDate;
+            }
 
             // 更新kvm的信息
             var updateKvmDtos = [];
@@ -392,7 +401,8 @@
 
                         }
                     });
-
+                    // owner
+                    devIds.push(user.userId);
                     var updateKvmDto = {
                         projectId: addProjectId,
                         projectName: projectMap.get(addProjectId),
@@ -408,7 +418,7 @@
 
             // 更新change的信息
             var updateChangeDto = {
-                ownerId:data.ownerId,
+                ownerId: data.ownerId,
                 changeName: data.changeName,
                 changeId: data.changeId,
                 branchName: data.branchName,
@@ -438,7 +448,7 @@
                     console.log(" update change fail")
                 }
             });
-            // 发送更新变更请求
+            // 发送更新KVM请求
             $.ajax({
                 url: requestHost + "/change/kvm",
                 type: "PUT",
@@ -446,10 +456,10 @@
                 dataType: "JSON",
                 contentType: "application/json",
                 success: function () {
-                    console.log("update kvm ok")
-
+                    console.log("update kvm ok");
+                    $(window).attr("location", "detail.html?changeId=" + changeId)
                 }, error: function () {
-                    console.log("update kvm fail")
+                    alert("update kvm fail")
                 }
             })
 

@@ -93,10 +93,10 @@
                     if (data != null) {
                         var s = JSON.stringify(data);
                         $.cookie("user", s, {path: "/", expires: 1});
+                        $(window).attr("location", "starter.html")
                     } else {
                         alert("信息不正确")
                     }
-                    $(window).attr("location", "starter.html")
 
                 }
                 , error: function () {
