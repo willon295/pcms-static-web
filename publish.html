@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <script src="plugins/vue/vue.min.js"></script>
     <script src="dist/js/main.js"></script>
 </head>
@@ -82,7 +81,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
                             <li><a href="javascript:void(0)" onclick="deployPublish(this)"
-                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\''+branchName+'\',,\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
                             </li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -107,7 +106,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
                             <li><a href="javascript:void(0)" onclick="deployPublish(this)"
-                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                                   :value="'{\'hostname\': \''+p.projectName+'\',\'branchName\':\''+branchName+'\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
                             </li>
                         </ul>
                         <ul class="dropdown-menu" role="menu" v-else>
@@ -162,7 +161,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
                             <li><a href="javascript:void(0)" onclick="deployPublish(this)"
-                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                                   :value="'{\'hostname\': \''+p.projectName+'\',\'branchName\':\''+branchName+'\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
                             </li>
                             <li><a href="#">回滚</a></li>
                         </ul>
@@ -190,7 +189,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" v-if="p.permission=='all'">
                             <li><a href="javascript:void(0)" onclick="deployPublish(this)"
-                                   :value="'{\'hostname\': \''+p.projectName+'\', \'branchName\':\'master\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
+                                   :value="'{\'hostname\': \''+p.projectName+'\',\'branchName\':\''+branchName+'\',\'env\':\'publish\',\'changeId\':'+changeId+',\'userId\':'+userId+'}'">部署</a>
                             </li>
                             <li><a href="#">回滚</a></li>
                         </ul>
@@ -290,6 +289,7 @@
             data: {
                 changeId: changeId,
                 changeName: "",
+                branchName:"",
                 userId: user.userId,
                 servers: [],
                 sends: [],
@@ -303,6 +303,7 @@
                         publish.servers = res.data.servers;
                         publish.sends = res.data.sends;
                         publish.receiveChecks = res.data.receives;
+                        publish.branchName = res.data.branchName;
                     }
                 })
             }, methods: {
